@@ -40,16 +40,19 @@ function createBarChart(selectedSample)
     //Fetch the data for the bar chart.
     d3.json(bacteriaData).then((data) => 
     {
-        console.log(`Bacteria Data: ${data}`);
+        console.log(data);
 
         //Set variable for bacteria sample
-        let bacteriaSamples = bacteriaData.samples;
+        let bacteriaSamples = data.samples;
+
 
         //Filter the data for the selected sample.
         let samplesArray = bacteriaSamples.filter(bacteriaSample => bacteriaSample.id == selectedSample);
+
         
         //Set first result to variable
         let result = samplesArray[0];
+
 
         //Set variables for OTU Ids, labels, and sample values.
 
@@ -57,13 +60,15 @@ function createBarChart(selectedSample)
         let otuLabels = result.otu_labels;
         let bacteriaSampleValues = result.sample_values;
 
+
         //Define the x and y ticks for the bar
         let yTicks = otuIds.slice(0, 10).map(otuId => `OTU ${otuId}`).reverse();
         let xTicks = bacteriaSampleValues.slice(0, 10).reverse();
-        let hoverLabels = otuLabels.slice(0, 10).reverse()
+        let hoverLabels = otuLabels.slice(0, 10).reverse();
+
 
         //Create the trace for the bar chart.
-        let trace1 = {
+        let trace = {
             x: xTicks,
             y: yTicks,
             text: hoverLabels,
@@ -72,7 +77,7 @@ function createBarChart(selectedSample)
         };
 
         //Put trace into an array.
-        let barData = {trace1};
+        let barData = [trace];
 
         //Set title for the bar chart.
         let title = "Top 10 Bacteria Found in Individual";
@@ -91,5 +96,34 @@ function createBarChart(selectedSample)
         Plotly.newPlot('bar', barData, barLayout);
     });
 }
+
+
+// Create the metadata table
+function metatable(selectedSample)
+{
+    //Fetch the data for the bar chart.
+    d3.json(bacteriaData).then((data) => 
+    {
+        console.log(data);
+
+         //Set variable for metadata 
+         let metaSamples = data.metadata;
+ 
+         //Filter the metadata for the selected sample.
+         let metaArray = metaSamples.filter(metaSample => metaSample.id == selectedSample);
+ 
+         //Set first result to variable
+         let result = metaArray[0];
+    })
+};
+
+
+
+function changeSample(newSample) {
+    createBarChart(newSample);
+};
+
+
+
 
 initMenu();
