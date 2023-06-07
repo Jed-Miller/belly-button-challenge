@@ -11,7 +11,7 @@ function initMenu()
     //Fetch JSON data and console log it.
     d3.json(bacteriaData).then((data) => 
     {
-        console.log(`Bacteria Data: ${data}`);
+        console.log(data);
 
         //Set sample names variable.
         let bacteriaNames = data.names;
@@ -27,9 +27,9 @@ function initMenu()
 
         //Call the plot functions.
         createBarChart(sampleName);
+        metatable(sampleName);
+        createBubbleChart(sampleName);
 
-    
-    
     });
 }
 
@@ -114,13 +114,81 @@ function metatable(selectedSample)
  
          //Set first result to variable
          let result = metaArray[0];
-    })
+
+         //Clear out metadata table to ensure it is empty.
+         d3.select("#sample-metadata").html(" ");
+
+         //Establish object.entries variable to iterate through the metadata.
+         keyValues = Object.entries(result);
+
+         //Add key values to the metadata table
+         keyValues.forEach(([k, v]) =>
+         {
+            d3.select("#sample-metadata").append("h6").text(`${k}: ${v}`);
+         });
+
+         console.log(keyValues);
+
+    });
 };
 
+//Create the bubble chart.
+function createBubbleChart(selectedSample)
+{
+    //Fetch the data for the bubble chart.
+    d3.json(bacteriaData).then((data) =>
+    {
+        console.log(data);
 
+        //Set variable for bacteria sample
+        let bacteriaSamples = data.samples;
+
+        //Filter the data for the selected sample.
+        let samplesArray = bacteriaSamples.filter(bacteriaSample => bacteriaSample.id == selectedSample);
+
+        //Set first result to variable
+        let result = samplesArray[0];
+
+        //Set variables for OTU Ids, labels, and sample values.
+
+        let otuIds = result.otu_ids;
+        let otuLabels = result.otu_labels;
+        let bacteriaSampleValues = result.sample_values;
+
+        //Create the trace for the bubble chart.
+
+        let trace = 
+        {
+            x: otuIds,
+            y: bacteriaSampleValues,
+            text: otuLabels,
+            mode: 'markers',
+            marker: {
+                size: bacteriaSampleValues,
+                color: otuIds,
+                colorscale: 'Earth'
+            }
+
+        };
+
+        let bubbleData = [trace];
+
+        //Set title for the xaxis.
+        let layout = 
+        {
+            title: "OTU ID"
+        };
+
+        //Plot the bubble chart.
+        Plotly.newPlot("bubble", bubbleData, layout);
+        
+    })
+}
 
 function changeSample(newSample) {
     createBarChart(newSample);
+    metatable(newSample);
+    createBubbleChart(newSample);
 };
 
 
