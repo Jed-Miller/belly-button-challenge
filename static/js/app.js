@@ -252,20 +252,10 @@ function createGaugeChart(selectedSample)
             title: {text: "<b>Belly Button Washing Frequency</b> <br> Scrubs per Week", font: {size: 20}},
             type: "indicator",
             mode: "gauge+number",
-            //showticklabels: true,
             gauge: 
             {
                 axis: {range: [null, 9], nticks: 10},
                 steps: [
-                    // {text: "0-1", color: "rgb(247,241,233)"},
-                    // {text: "1-2", color: "rgb(243,239,225)"},
-                    // {text: "2-3", color: "rgb(230,227,195)"},
-                    // {text: "3-4", color: "rgb(225,228,170)"},
-                    // {text: "4-5", color: "rgb(207,225,146)"},
-                    // {text: "5-6", color: "rgb(174,198,135)"},
-                    // {text: "6-7", color: "rgb(127,184,125)"},
-                    // {text: "7-8", color: "rgb(125,179,132)"},
-                    // {text: "8-9", color: "rgb(120,172,127)"}
                     {range: [0,1], color: "rgb(247,241,233)"},
                     {range: [1,2], color: "rgb(243,239,225)"},
                     {range: [2,3], color: "rgb(230,227,195)"},
