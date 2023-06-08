@@ -2,7 +2,6 @@ const bacteriaData = "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-c
 
 
 //Initialize the dropdown menu.
-
 function initMenu() 
 {
     //Fetch the dropdown menu.
@@ -16,7 +15,7 @@ function initMenu()
         //Set sample names variable.
         let bacteriaNames = data.names;
 
-        //Iterate through the sample names onto the dropdown menu.
+        //Iterate through the sample names onto the dropdown menu, appending each key value to the dropdown as a new option.
         bacteriaNames.forEach((bacteriaName) => 
         {
             dropDownMenu.append("option").text(bacteriaName).property("value", bacteriaName);
@@ -176,7 +175,7 @@ function createBubbleChart(selectedSample)
         //Set title for the xaxis.
         let layout = 
         {
-            title: "OTU ID"
+            xaxis: {title: "OTU ID"}
         };
 
         //Plot the bubble chart.
