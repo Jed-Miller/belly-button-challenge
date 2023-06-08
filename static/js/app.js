@@ -270,7 +270,7 @@ function createGaugeChart(selectedSample)
          }];
          let layout =
          {
-            width: 500, height: 400, margin: {t: 10, b: 0, l: 0, r: 0}
+            width: 500, height: 400, margin: {t: 100, b: 100, l: 100, r: 100}
          };
 
          //Generate gauge chart using plotly.
@@ -279,7 +279,7 @@ function createGaugeChart(selectedSample)
 }
 
 
-function changeSample(newSample) 
+function optionChanged(newSample) 
 {
     createBarChart(newSample);
     metatable(newSample);
