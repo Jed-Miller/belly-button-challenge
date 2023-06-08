@@ -176,7 +176,8 @@ function createBubbleChart(selectedSample)
         //Set title for the xaxis.
         let layout = 
         {
-            xaxis: {title: "OTU ID"}
+            xaxis: {title: "OTU ID"},
+            width: 1500, height: 600, margin: {t: 100, b: 100, l: 100, r: 100}
         };
 
         //Plot the bubble chart.
@@ -207,44 +208,6 @@ function createGaugeChart(selectedSample)
 
          console.log(result);
 
-        //  $(() => {
-        //     $('#gauge').dxCircularGauge({
-        //       scale: {
-        //         startValue: 0,
-        //         endValue: 9,
-        //         tickInterval: 1,
-        //         label: {
-        //           useRangeColors: true,
-        //         },
-        //       },
-        //       rangeContainer: {
-        //         palette: 'pastel',
-        //         ranges: [
-        //           { startValue: 0, endValue: 1 },
-        //           { startValue: 1, endValue: 2 },
-        //           { startValue: 2, endValue: 3 },
-        //           { startValue: 3, endValue: 4 },
-        //           { startValue: 4, endValue: 5 },
-        //           { startValue: 5, endValue: 6 },
-        //           { startValue: 6, endValue: 7 },
-        //           { startValue: 7, endValue: 8 },
-        //           { startValue: 8, endValue: 9 }
-                  
-        //         ],
-        //       },
-        //       title: {
-        //         text: "<b>Belly Button Washing Frequency</b> <br> Scrubs per Week",
-        //         font: { size: 28 },
-        //       },
-        //       export: {
-        //         enabled: true,
-        //       },
-        //       value: 105,
-        //     });
-        //   });
-         
-         
-         //Create the trace elements for the gauge chart.
          let trace = 
          [{
             domain: {x: [0, 1], y: [0, 1]},
