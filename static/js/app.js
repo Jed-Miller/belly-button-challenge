@@ -28,6 +28,7 @@ function initMenu()
         createBarChart(sampleName);
         metatable(sampleName);
         createBubbleChart(sampleName);
+        createGaugeChart(sampleName);
 
     });
 }
@@ -182,14 +183,119 @@ function createBubbleChart(selectedSample)
         Plotly.newPlot("bubble", bubbleData, layout);
         
     })
+};
+
+function createGaugeChart(selectedSample)
+{
+    //Fetch the data for the bar chart.
+    d3.json(bacteriaData).then((data) => 
+    {
+        console.log(data);
+
+         //Set variable for metadata 
+         let metaSamples = data.metadata;
+
+         console.log(metaSamples);
+ 
+         //Filter the metadata for the selected sample.
+         let metaArray = metaSamples.filter(metaSample => metaSample.id == selectedSample);
+
+         console.log(metaArray);
+ 
+         //Set first result to variable
+         let result = metaArray[0];
+
+         console.log(result);
+
+        //  $(() => {
+        //     $('#gauge').dxCircularGauge({
+        //       scale: {
+        //         startValue: 0,
+        //         endValue: 9,
+        //         tickInterval: 1,
+        //         label: {
+        //           useRangeColors: true,
+        //         },
+        //       },
+        //       rangeContainer: {
+        //         palette: 'pastel',
+        //         ranges: [
+        //           { startValue: 0, endValue: 1 },
+        //           { startValue: 1, endValue: 2 },
+        //           { startValue: 2, endValue: 3 },
+        //           { startValue: 3, endValue: 4 },
+        //           { startValue: 4, endValue: 5 },
+        //           { startValue: 5, endValue: 6 },
+        //           { startValue: 6, endValue: 7 },
+        //           { startValue: 7, endValue: 8 },
+        //           { startValue: 8, endValue: 9 }
+                  
+        //         ],
+        //       },
+        //       title: {
+        //         text: "<b>Belly Button Washing Frequency</b> <br> Scrubs per Week",
+        //         font: { size: 28 },
+        //       },
+        //       export: {
+        //         enabled: true,
+        //       },
+        //       value: 105,
+        //     });
+        //   });
+         
+         
+         //Create the trace elements for the gauge chart.
+         let trace = 
+         [{
+            domain: {x: [0, 1], y: [0, 1]},
+            value: result.wfreq,
+            title: {text: "<b>Belly Button Washing Frequency</b> <br> Scrubs per Week", font: {size: 20}},
+            type: "indicator",
+            mode: "gauge+number",
+            //showticklabels: true,
+            gauge: 
+            {
+                axis: {range: [null, 9], nticks: 10},
+                steps: [
+                    // {text: "0-1", color: "rgb(247,241,233)"},
+                    // {text: "1-2", color: "rgb(243,239,225)"},
+                    // {text: "2-3", color: "rgb(230,227,195)"},
+                    // {text: "3-4", color: "rgb(225,228,170)"},
+                    // {text: "4-5", color: "rgb(207,225,146)"},
+                    // {text: "5-6", color: "rgb(174,198,135)"},
+                    // {text: "6-7", color: "rgb(127,184,125)"},
+                    // {text: "7-8", color: "rgb(125,179,132)"},
+                    // {text: "8-9", color: "rgb(120,172,127)"}
+                    {range: [0,1], color: "rgb(247,241,233)"},
+                    {range: [1,2], color: "rgb(243,239,225)"},
+                    {range: [2,3], color: "rgb(230,227,195)"},
+                    {range: [3,4], color: "rgb(225,228,170)"},
+                    {range: [4,5], color: "rgb(207,225,146)"},
+                    {range: [5,6], color: "rgb(174,198,135)"},
+                    {range: [6,7], color: "rgb(127,184,125)"},
+                    {range: [7,8], color: "rgb(125,179,132)"},
+                    {range: [8,9], color: "rgb(120,172,127)"}
+                ],
+            }
+         }];
+         let layout =
+         {
+            width: 500, height: 400, margin: {t: 10, b: 0, l: 0, r: 0}
+         };
+
+         //Generate gauge chart using plotly.
+         Plotly.newPlot("gauge", trace, layout);
+    });
 }
 
-function changeSample(newSample) {
+
+function changeSample(newSample) 
+{
     createBarChart(newSample);
     metatable(newSample);
     createBubbleChart(newSample);
-};
-
+    createGaugeChart(newSample);
+}
 
 
 
