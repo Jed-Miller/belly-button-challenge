@@ -44,3 +44,7 @@ Next, using d3 and plotly, I created a bubble chart to display each bacteria sam
 Lastly, I created a gauge chart to display the weekly washing frequency of each selected subject.
 
 ![gauge_chart](./Images/gauge_chart.png "Gauge Chart")
+
+## Github Pages Deployment
+
+The final step of this project was to set up a live deployment on Github Pages. Here is the link to my deployment page: https://jed-miller.github.io/belly-button-challenge/
